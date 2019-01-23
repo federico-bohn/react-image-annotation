@@ -82,7 +82,8 @@ export default compose(
     renderContent: T.func.isRequired,
 
     disableOverlay: T.bool,
-    renderOverlay: T.func.isRequired
+    renderOverlay: T.func.isRequired,
+    onAnnotationHovered: T.func,
   }
 
   static defaultProps = defaultProps
@@ -134,7 +135,12 @@ export default compose(
 
   onMouseUp = (e) => this.callSelectorMethod('onMouseUp', e)
   onMouseDown = (e) => this.callSelectorMethod('onMouseDown', e)
-  onMouseMove = (e) => this.callSelectorMethod('onMouseMove', e)
+  onMouseMove = (e) => {
+    const topAnnotationAtMouse = this.getTopAnnotationAt(this.props.relativeMousePos.x, this.props.relativeMousePos.y);
+    const {onAnnotationHovered} = this.props;
+    if (onAnnotationHovered) onAnnotationHovered(topAnnotationAtMouse);
+    return this.callSelectorMethod('onMouseMove', e)
+  }
   onClick = (e) => this.callSelectorMethod('onClick', e)
 
   onSubmit = () => {

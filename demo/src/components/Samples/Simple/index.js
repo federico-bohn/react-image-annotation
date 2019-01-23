@@ -29,6 +29,10 @@ export default class Simple extends Component {
     })
   }
 
+  onAnnotationHovered(annotation) {
+    console.log('annotation: ', annotation);
+  }
+
   render () {
     return (
       <Root>
@@ -42,6 +46,7 @@ export default class Simple extends Component {
           value={this.state.annotation}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
+          onAnnotationHovered={this.onAnnotationHovered}
         />
       </Root>
     )
